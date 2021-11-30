@@ -42,6 +42,4 @@ const agent = {
     Activities
 }
 
-
-
 export default agent;
