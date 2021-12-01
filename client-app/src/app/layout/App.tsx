@@ -11,45 +11,45 @@ import ActivityDetails from '../../features/activities/details/ActivityDetails';
 function App() {
   const location = useLocation();
 
-  return (
-    <>
-      {<NavBar />}
-      <Container style={{ marginTop: '7em' }}>
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/activities' element={<ActivityDashboard />} />
-          <Route path='/activities/:id' element={<ActivityDetails />} />
-          <Route key={location.key} path='/createActivity' element={<ActivityForm />} />
-          <Route key={location.key} path='/manage/:id' element={<ActivityForm />} />
-        </Routes>
-      </Container>
-    </>
-  );
-
-  
   // return (
   //   <>
-  //     <BrowserRouter>
-  //       <Route path='/' element={<HomePage />} />
-  //       <Route
-  //         path={'/(.+)'}
-  //         render={() => (
-  //           <>
-  //             <NavBar />
-  //             <Container style={{ marginTop: '7em' }}>
-  //               <Routes>
-  //                 <Route path='/activities' element={<ActivityDashboard />} />
-  //                 <Route path='/activities/:id' element={<ActivityDetails />} />
-  //                 <Route key={location.key} path='/createActivity' element={<ActivityForm />} />
-  //                 <Route key={location.key} path='/manage/:id' element={<ActivityForm />} />
-  //               </Routes>
-  //             </Container>
-  //           </>
-  //           )}
-  //       />
-  //     </BrowserRouter>
+  //     {<NavBar />}
+  //     <Container style={{ marginTop: '7em' }}>
+  //       <Routes>
+  //         <Route path='/' element={<HomePage />} />
+  //         <Route path='/activities' element={<ActivityDashboard />} />
+  //         <Route path='/activities/:id' element={<ActivityDetails />} />
+  //         <Route key={location.key} path='/createActivity' element={<ActivityForm />} />
+  //         <Route key={location.key} path='/manage/:id' element={<ActivityForm />} />
+  //       </Routes>
+  //     </Container>
   //   </>
   // );
+
+
+  return (
+    <>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route
+          path={'/*'}
+          element={
+            <>
+              <NavBar />
+              <Container style={{ marginTop: '7em' }}>
+                <Routes>
+                  <Route path='/activities' element={<ActivityDashboard />} />
+                  <Route path='/activities/:id' element={<ActivityDetails />} />
+                  <Route key={location.key} path='/createActivity' element={<ActivityForm />} />
+                  <Route key={location.key} path='/manage/:id' element={<ActivityForm />} />
+                </Routes>
+              </Container>
+            </>
+          }
+        />
+      </Routes>
+    </>
+  );
 }
 
 
