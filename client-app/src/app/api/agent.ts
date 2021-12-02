@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { Activity } from "../modules/activity";
+import { Activity } from "../models/activity";
 
 //bu sınıfı tüm requestleri yönetmek configi ayarlamak için yapıyoruz
 
