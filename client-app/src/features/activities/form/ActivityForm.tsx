@@ -5,15 +5,15 @@ import { Button, Form, Segment } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { useStore } from "../../../app/stores/store";
 import { v4 as uuid } from 'uuid';
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Activity } from "../../../app/models/activity";
 
 export default observer(function ActivityForm() {
-    const navigate = useNavigate();
+    const history = useHistory();
     const { activityStore } = useStore();
     const { createActivity, updateActivity, loading, loadActivity, loadingInitial } = activityStore; //Property çekme destruction
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
 
     const [activity, setActivity] = useState<Activity>({
         id: '',
@@ -35,9 +35,9 @@ export default observer(function ActivityForm() {
                 ...activity,
                 id: uuid()
             };
-            createActivity(newActivity).then(() => navigate(`/activities/${newActivity.id}`))
+            createActivity(newActivity).then(() => history.push(`/activities/${newActivity.id}`))
         } else {
-            updateActivity(activity).then(() => navigate(`/activities/${activity.id}`))
+            updateActivity(activity).then(() => history.push(`/activities/${activity.id}`))
         }
     }
 
