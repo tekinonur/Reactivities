@@ -7,14 +7,15 @@ import { useStore } from "../../../app/stores/store";
 import { v4 as uuid } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Activity } from "../../../app/models/activity";
 
 export default observer(function ActivityForm() {
     const navigate = useNavigate();
-    const {activityStore} = useStore();
-    const {createActivity,updateActivity,loading,loadActivity, loadingInitial} = activityStore; //Property çekme destruction
-    const {id} = useParams();
+    const { activityStore } = useStore();
+    const { createActivity, updateActivity, loading, loadActivity, loadingInitial } = activityStore; //Property çekme destruction
+    const { id } = useParams();
 
-    const [activity, setActivity] = useState({
+    const [activity, setActivity] = useState<Activity>({
         id: '',
         title: '',
         category: '',
@@ -26,18 +27,18 @@ export default observer(function ActivityForm() {
 
     useEffect(() => {
         if (id) loadActivity(id).then(activity => setActivity(activity!))
-    },[id, loadActivity]) //burda id ,loadactivity dependency sadece bunlar değşiirse bu kod çalışıyor, bunu koymazsak sonsuz döngüde çalışır
+    }, [id, loadActivity]) //burda id ,loadactivity dependency sadece bunlar değşiirse bu kod çalışıyor, bunu koymazsak sonsuz döngüde çalışır
 
     function handleSubmit() {
-       if(activity.id.length === 0){
-           let newActivity ={
-               ...activity,
-               id: uuid()
-           };
-           createActivity(newActivity).then(() => navigate(`/activities/${newActivity.id}`))
-       } else{
-           updateActivity(activity).then(() => navigate(`/activities/${activity.id}`))
-       }
+        if (activity.id.length === 0) {
+            let newActivity = {
+                ...activity,
+                id: uuid()
+            };
+            createActivity(newActivity).then(() => navigate(`/activities/${newActivity.id}`))
+        } else {
+            updateActivity(activity).then(() => navigate(`/activities/${activity.id}`))
+        }
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) { //hem  input hem textarea çalışması için
@@ -45,7 +46,7 @@ export default observer(function ActivityForm() {
         setActivity({ ...activity, [name]: value });
     }
 
-    if(loadingInitial) return <LoadingComponent content='Loading activity..' />
+    if (loadingInitial) return <LoadingComponent content='Loading activity...' />
 
     return (
         <Segment clearing>
@@ -57,7 +58,7 @@ export default observer(function ActivityForm() {
                 <Form.Input placeholder='City' value={activity.city} name='city' onChange={handleInputChange} />
                 <Form.Input placeholder='Venue' value={activity.venue} name='venue' onChange={handleInputChange} />
                 <Button loading={loading} floated='right' positive type='submit' content='Submit' />
-                <Button as={Link} to='/Activities' floated='right' type='submit' content='Cancel' />
+                <Button as={Link} to='/activities' floated='right' type='submit' content='Cancel' />
             </Form>
         </Segment>
     )
