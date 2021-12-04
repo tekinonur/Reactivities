@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { hostname } from "os";
 import { toast } from "react-toastify";
 import { history } from "../..";
 import { Activity } from "../models/activity";
